@@ -3,9 +3,13 @@ package org.api.workout.enteties.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.api.workout.enteties.goals.Goal;
+import org.api.workout.enteties.workout.Workout;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,7 +27,10 @@ public class User {
     private OffsetDateTime createdAt;
     @Column(name = "last_login", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime lastLogin;
-
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Workout> workouts = new ArrayList();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Goal> goals = new ArrayList();
     public User() {}
     public User(String username, String passHash) {
         this.username = username;

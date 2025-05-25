@@ -1,7 +1,7 @@
-package org.api.workout.services;
+package org.api.workout.services.user;
 
 import org.api.workout.enteties.user.User;
-import org.api.workout.repositories.UserDBRepo;
+import org.api.workout.repositories.user.UserDBRepo;
 import org.springframework.stereotype.Service;
 
 @Service
