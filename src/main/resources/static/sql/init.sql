@@ -1,0 +1,24 @@
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY,
+    username VARCHAR(15) UNIQUE NOT NULL,
+    pass_hash VARCHAR NOT NULL,
+    role VARCHAR NOT NULL DEFAULT 'USER',
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMPTZ NOT NULL
+);
+CREATE TABLE workouts (
+    id BIGINT PRIMARY KEY,
+    author_id BIGINT REFERENCES users(id) NOT NULL,
+    date TIMESTAMPTZ NOT NULL,
+    is_done BOOLEAN NOT NULL,
+    type VARCHAR,
+    duration INT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE goals (
+    id BIGINT PRIMARY KEY,
+    author_id BIGINT REFERENCES users(id) NOT NULL,
+    text TEXT NOT NULL,
+    deadline TIMESTAMPTZ,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);

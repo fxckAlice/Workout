@@ -1,0 +1,67 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build output
+/target/
+/build/
+
+# Logs
+*.log
+
+# Dependency directories (for Gradle)
+.gradle/
+/build/
+
+# Maven
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle Wrapper
+gradle-wrapper.jar
+gradle-wrapper.properties
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Environment files
+.env
+*.env
+
+# Java
+*.class
+
+# IDE specific
+*.sw?
+*.swo
+*.bak
+
+# Compiled sources
+out/
+
+# Coverage / test reports
+coverage/
+*.exec
+jacoco.exec
+test-results/
+test-output/
+
+# Others
+.vscode/
+*.tmp
+*.bak
+*.old
+*.orig
+
+# Ignore local application properties
+application-local.properties

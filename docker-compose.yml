@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    container_name: postg
+    environment:
+      POSTGRES_DB: workout
+      POSTGRES_USER: webapi
+      POSTGRES_PASSWORD: serV3l4T
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/static/sql:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: null
