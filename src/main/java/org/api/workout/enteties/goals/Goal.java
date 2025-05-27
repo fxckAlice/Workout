@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.api.workout.enteties.user.User;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "goals")
@@ -19,19 +20,20 @@ public class Goal {
     @JoinColumn(name = "author_id")
     private User author;
     private String text;
+    private boolean isDone;
     @Column(name = "deadline", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime deadline;
+    private LocalDateTime deadline;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     public Goal() {}
     public Goal(User author, String text) {
         this.author = author;
         this.text = text;
-        this.createdAt = OffsetDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
     @PrePersist
     public void prePersist() {
-        this.setCreatedAt(OffsetDateTime.from(java.time.LocalDateTime.now()));
+        this.setCreatedAt(LocalDateTime.now());
     }
 }

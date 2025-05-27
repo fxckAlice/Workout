@@ -7,45 +7,53 @@ import org.api.workout.enteties.goals.Goal;
 import org.api.workout.enteties.workout.Workout;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String username;
     private String passHash;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "author_id"))
     @Enumerated(EnumType.STRING)
-    private UserRoles role;
+    private Set<UserRoles> role = new HashSet<>();
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
+
     @Column(name = "last_login", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime lastLogin;
+    private LocalDateTime lastLogin;
+
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Workout> workouts = new ArrayList();
+
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Goal> goals = new ArrayList();
     public User() {}
     public User(String username, String passHash) {
         this.username = username;
         this.passHash = passHash;
-        this.role = UserRoles.USER;
-        this.createdAt = OffsetDateTime.now();
-        this.lastLogin = OffsetDateTime.now();
+        this.role.add(UserRoles.USER);
+        this.createdAt = LocalDateTime.now();
+        this.lastLogin = LocalDateTime.now();
     }
     @PrePersist
     public void prePersist() {
-        this.setCreatedAt(OffsetDateTime.from(LocalDateTime.now()));
-        this.setLastLogin(OffsetDateTime.from(LocalDateTime.now()));
+        this.setCreatedAt(LocalDateTime.now());
+        this.setLastLogin(LocalDateTime.now());
     }
     @PostLoad
     public void postLoad() {
-        this.setLastLogin(OffsetDateTime.from(LocalDateTime.now()));
+        this.setLastLogin(LocalDateTime.now());
     }
 }

@@ -7,16 +7,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDBService{
     private final UserDBRepo userDBRepo;
-    public UserDBService(UserDBRepo userDBRepo) {
+    protected UserDBService(UserDBRepo userDBRepo) {
         this.userDBRepo = userDBRepo;
     }
-    public boolean existsByUsername(String username) {
+    protected boolean existsByUsername(String username) {
         return userDBRepo.existsByUsername(username);
     }
-    public User save(User user) {
+    protected User save(User user) {
         return userDBRepo.save(user);
     }
-    public User findByUsername(String username) {
-        return userDBRepo.findByUsername(username);
+    protected User findByUsername(String username) {
+        return userDBRepo.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+    protected User findById(long id) {
+        return userDBRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
