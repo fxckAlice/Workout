@@ -1,9 +1,9 @@
-package org.api.workout.enteties.workout;
+package org.api.workout.entities.workout;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.api.workout.enteties.user.User;
+import org.api.workout.entities.user.User;
 
 import java.time.LocalDateTime;
 
@@ -33,11 +33,7 @@ public class Workout {
         this.type = type;
         this.date = date;
         this.createdAt = LocalDateTime.now();
-    }
-    public Workout(long authorId, WorkoutType type, LocalDateTime date) {
-        this.type = type;
-        this.date = date;
-        this.createdAt = LocalDateTime.now();
+        this.isDone = false;
     }
     @PrePersist
     public void prePersist() {

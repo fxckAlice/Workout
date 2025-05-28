@@ -1,9 +1,9 @@
-package org.api.workout.enteties.user;
+package org.api.workout.entities.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum UserRoles implements GrantedAuthority {
-    USER, ADMIN;
+    ROLE_USER, ROLE_ADMIN;
 
     @Override
     public String getAuthority() {

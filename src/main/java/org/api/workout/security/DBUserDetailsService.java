@@ -1,6 +1,6 @@
 package org.api.workout.security;
 
-import org.api.workout.enteties.user.User;
+import org.api.workout.entities.user.User;
 import org.api.workout.repositories.user.UserDBRepo;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -2,7 +2,7 @@ package org.api.workout.controllers.users;
 
 import org.api.workout.controllers.dto.RegisterRequestDTO;
 import org.api.workout.controllers.dto.UserDTO;
-import org.api.workout.enteties.user.User;
+import org.api.workout.entities.user.User;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.user.UserService;
 import org.springframework.http.HttpStatus;

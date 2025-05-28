@@ -4,13 +4,9 @@ import org.api.workout.entities.workout.WorkoutType;
 
 import java.time.LocalDateTime;
 
-public record WorkoutDTO(
-        long id,
-        long authorId,
+public record NewWorkoutDTO(
         LocalDateTime date,
-        boolean isDone,
         WorkoutType type,
-        Integer duration,
-        LocalDateTime createdAt
+        Integer duration
 ) {
 }

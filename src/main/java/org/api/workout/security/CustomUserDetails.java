@@ -1,7 +1,7 @@
 package org.api.workout.security;
 
 
-import org.api.workout.enteties.user.User;
+import org.api.workout.entities.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

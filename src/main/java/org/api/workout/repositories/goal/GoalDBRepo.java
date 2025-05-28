@@ -1,6 +1,6 @@
 package org.api.workout.repositories.goal;
 
-import org.api.workout.enteties.goals.Goal;
+import org.api.workout.entities.goals.Goal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,10 @@
-package org.api.workout.enteties.user;
+package org.api.workout.entities.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.api.workout.enteties.goals.Goal;
-import org.api.workout.enteties.workout.Workout;
+import org.api.workout.entities.goals.Goal;
+import org.api.workout.entities.workout.Workout;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,16 +34,16 @@ public class User{
     @Column(name = "last_login", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private LocalDateTime lastLogin;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Workout> workouts = new ArrayList();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Workout> workouts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Goal> goals = new ArrayList();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Goal> goals = new ArrayList<>();
     public User() {}
     public User(String username, String passHash) {
         this.username = username;
         this.passHash = passHash;
-        this.role.add(UserRoles.USER);
+        this.role.add(UserRoles.ROLE_USER);
         this.createdAt = LocalDateTime.now();
         this.lastLogin = LocalDateTime.now();
     }

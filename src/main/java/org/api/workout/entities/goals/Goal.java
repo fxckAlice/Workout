@@ -1,9 +1,9 @@
-package org.api.workout.enteties.goals;
+package org.api.workout.entities.goals;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.api.workout.enteties.user.User;
+import org.api.workout.entities.user.User;
 
 import java.time.LocalDateTime;
 
