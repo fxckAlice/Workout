@@ -1,4 +1,4 @@
-package org.api.workout.enteties.workout;
+package org.api.workout.entities.workout;
 
 public enum WorkoutType {
     STRENGTH,

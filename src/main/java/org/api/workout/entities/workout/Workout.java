@@ -1,11 +1,11 @@
-package org.api.workout.enteties.workout;
+package org.api.workout.entities.workout;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.api.workout.enteties.user.User;
+import org.api.workout.entities.user.User;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "workouts")
@@ -19,28 +19,24 @@ public class Workout {
     @JoinColumn(name = "author_id")
     private User author;
     @Column(name = "date", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime date;
+    private LocalDateTime date;
     private boolean isDone;
     @Enumerated(EnumType.STRING)
     private WorkoutType type;
     private int duration;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     public Workout() {}
-    public Workout(User author, WorkoutType type, OffsetDateTime date) {
+    public Workout(User author, WorkoutType type, LocalDateTime date) {
         this.author = author;
         this.type = type;
         this.date = date;
-        this.createdAt = OffsetDateTime.now();
-    }
-    public Workout(long authorId, WorkoutType type, OffsetDateTime date) {
-        this.type = type;
-        this.date = date;
-        this.createdAt = OffsetDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.isDone = false;
     }
     @PrePersist
     public void prePersist() {
-        this.setCreatedAt(OffsetDateTime.from(java.time.LocalDateTime.now()));
+        this.setCreatedAt(LocalDateTime.now());
     }
 }
