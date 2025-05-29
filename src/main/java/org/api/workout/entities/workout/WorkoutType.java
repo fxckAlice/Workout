@@ -5,5 +5,6 @@ public enum WorkoutType {
     CARDIO,
     GYMNASTICS,
     TRX,
-    YOGA
+    YOGA,
+    OTHER
 }

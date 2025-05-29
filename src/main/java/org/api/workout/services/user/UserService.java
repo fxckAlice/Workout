@@ -1,9 +1,9 @@
 package org.api.workout.services.user;
 
-import org.api.workout.controllers.dto.GoalDTO;
-import org.api.workout.controllers.dto.RegisterRequestDTO;
-import org.api.workout.controllers.dto.UserDTO;
-import org.api.workout.controllers.dto.WorkoutDTO;
+import org.api.workout.controllers.dto.goal.GoalDTO;
+import org.api.workout.controllers.dto.user.RegisterRequestDTO;
+import org.api.workout.controllers.dto.user.UserDTO;
+import org.api.workout.controllers.dto.workout.WorkoutDTO;
 import org.api.workout.controllers.exceptions.user.UserAlreadyExistsException;
 import org.api.workout.entities.user.User;
 import org.springframework.security.crypto.password.PasswordEncoder;

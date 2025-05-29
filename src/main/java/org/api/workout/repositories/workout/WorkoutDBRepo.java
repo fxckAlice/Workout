@@ -32,6 +32,11 @@ public interface WorkoutDBRepo extends JpaRepository<Workout, Long> {
     List<Workout> findAllByDateBetween(LocalDateTime dateFrom, LocalDateTime dateTo);
     Optional<Workout> findById(long id);
     @SuppressWarnings("all")
-    int countAllByAuthorIdAndIsDone(long authorId, boolean isDone);
+    int countAllByAuthorId(long authorId);
+    int countByAuthorIdAndIsDone(long authorId, boolean isDone);
+    int countByAuthorIdAndType(long authorId, WorkoutType type);
+    int countByAuthorIdAndTypeAndIsDone(long authorId, WorkoutType type, boolean isDone);
+    Optional<Workout> findTopByAuthorIdAndIsDoneOrderByDateDesc(long authorId, boolean isDone);
+    Optional<Workout> findTopByAuthorIdAndIsDoneAndDateGreaterThanEqualOrderByDateAsc(long authorId, boolean isDone, LocalDateTime date);
     void deleteById(long id);
 }

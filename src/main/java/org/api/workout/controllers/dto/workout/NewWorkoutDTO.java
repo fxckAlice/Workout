@@ -1,4 +1,4 @@
-package org.api.workout.controllers.dto;
+package org.api.workout.controllers.dto.workout;
 
 import org.api.workout.entities.workout.WorkoutType;
 

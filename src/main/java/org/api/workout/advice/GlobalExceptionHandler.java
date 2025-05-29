@@ -1,5 +1,6 @@
 package org.api.workout.advice;
 
+import org.api.workout.controllers.exceptions.goals.GoalNotFoundException;
 import org.api.workout.controllers.exceptions.user.UserAlreadyExistsException;
 import org.api.workout.controllers.exceptions.user.UserNotFoundException;
 import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
@@ -53,6 +54,12 @@ public class GlobalExceptionHandler {
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
-
+    @ExceptionHandler(GoalNotFoundException.class)
+    public ResponseEntity<?> handleGoalNotFoundException(GoalNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "not found");
+        error.put("message", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 
 }
