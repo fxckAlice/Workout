@@ -1,11 +1,13 @@
 package org.api.workout.services.user;
 
-import org.api.workout.controllers.dto.goal.GoalDTO;
-import org.api.workout.controllers.dto.user.RegisterRequestDTO;
-import org.api.workout.controllers.dto.user.UserDTO;
-import org.api.workout.controllers.dto.workout.WorkoutDTO;
-import org.api.workout.controllers.exceptions.user.UserAlreadyExistsException;
+import org.api.workout.dto.goal.GoalDTO;
+import org.api.workout.dto.user.RegisterRequestDTO;
+import org.api.workout.dto.user.UserDTO;
+import org.api.workout.dto.workout.WorkoutDTO;
+import org.api.workout.exceptions.user.UserAlreadyExistsException;
+import org.api.workout.exceptions.workout.AccessForbiddenException;
 import org.api.workout.entities.user.User;
+import org.api.workout.security.CustomUserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,7 @@ public class UserService {
         User user = new User(requestDTO.username(), passwordEncoder.encode(requestDTO.password()));
         return userDBService.save(user);
     }
+    @SuppressWarnings("all")
     public User login(RegisterRequestDTO requestDTO) {
         User user = userDBService.findByUsername(requestDTO.username());
         if (!passwordEncoder.matches(requestDTO.password(), user.getPassHash())) {
@@ -39,7 +42,11 @@ public class UserService {
     }
     @SuppressWarnings("all")
     @Transactional
-    public UserDTO getUserDTOById(long id) {
+    public UserDTO getUserDTOById(long id, CustomUserDetails userDetails) {
+        if (id != userDetails.getId() && userDetails.getAuthorities().stream()
+                .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            throw new AccessForbiddenException("You don't have access to this user.");
+        }
         User user = userDBService.findById(id);
 
         user.getWorkouts().size();

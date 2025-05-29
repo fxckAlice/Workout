@@ -1,9 +1,9 @@
 package org.api.workout.controllers.goals;
 
-import org.api.workout.controllers.dto.goal.GoalDTO;
-import org.api.workout.controllers.dto.goal.GoalsFilterDTO;
-import org.api.workout.controllers.dto.goal.NewGoalDTO;
-import org.api.workout.controllers.dto.goal.UpdateGoalDTO;
+import org.api.workout.dto.goal.GoalDTO;
+import org.api.workout.dto.goal.GoalsFilterDTO;
+import org.api.workout.dto.goal.NewGoalDTO;
+import org.api.workout.dto.goal.UpdateGoalDTO;
 import org.api.workout.entities.goals.Goal;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.goal.GoalService;

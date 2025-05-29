@@ -1,4 +1,4 @@
-package org.api.workout.controllers.dto.stats;
+package org.api.workout.dto.stats;
 
 public record StatsByTypeDTO(
         int StrengthWorkouts,

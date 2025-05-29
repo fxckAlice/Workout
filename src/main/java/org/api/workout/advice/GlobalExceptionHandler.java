@@ -1,10 +1,10 @@
 package org.api.workout.advice;
 
-import org.api.workout.controllers.exceptions.goals.GoalNotFoundException;
-import org.api.workout.controllers.exceptions.user.UserAlreadyExistsException;
-import org.api.workout.controllers.exceptions.user.UserNotFoundException;
-import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
-import org.api.workout.controllers.exceptions.workout.WorkoutNotFoundException;
+import org.api.workout.exceptions.goals.GoalNotFoundException;
+import org.api.workout.exceptions.user.UserAlreadyExistsException;
+import org.api.workout.exceptions.user.UserNotFoundException;
+import org.api.workout.exceptions.workout.AccessForbiddenException;
+import org.api.workout.exceptions.workout.WorkoutNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

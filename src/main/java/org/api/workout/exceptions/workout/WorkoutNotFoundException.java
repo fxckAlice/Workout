@@ -1,4 +1,4 @@
-package org.api.workout.controllers.exceptions.workout;
+package org.api.workout.exceptions.workout;
 
 public class WorkoutNotFoundException extends RuntimeException {
     public WorkoutNotFoundException(String message) {

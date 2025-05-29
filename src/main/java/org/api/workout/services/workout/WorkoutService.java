@@ -1,11 +1,11 @@
 package org.api.workout.services.workout;
 
-import org.api.workout.controllers.dto.workout.NewWorkoutDTO;
-import org.api.workout.controllers.dto.workout.UpdateWorkoutDTO;
-import org.api.workout.controllers.dto.workout.WorkoutDTO;
-import org.api.workout.controllers.dto.workout.WorkoutFilterDTO;
-import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
-import org.api.workout.controllers.exceptions.workout.WorkoutNotFoundException;
+import org.api.workout.dto.workout.NewWorkoutDTO;
+import org.api.workout.dto.workout.UpdateWorkoutDTO;
+import org.api.workout.dto.workout.WorkoutDTO;
+import org.api.workout.dto.workout.WorkoutFilterDTO;
+import org.api.workout.exceptions.workout.AccessForbiddenException;
+import org.api.workout.exceptions.workout.WorkoutNotFoundException;
 import org.api.workout.entities.workout.Workout;
 import org.api.workout.entities.workout.WorkoutType;
 import org.api.workout.security.CustomUserDetails;
@@ -116,6 +116,9 @@ public class WorkoutService {
                 newWorkoutDTO.date()
         );
         if (newWorkoutDTO.duration() != null) {
+            if (newWorkoutDTO.duration() < 15) {
+                throw new IllegalArgumentException("Duration must be greater than 15 minutes.");
+            }
             workout.setDuration(newWorkoutDTO.duration());
         }
         return workoutDBService.save(workout);
@@ -178,6 +181,9 @@ public class WorkoutService {
         workout.setDone(workoutDTO.isDone());
         workout.setType(workoutDTO.type());
         if (workoutDTO.duration() != null) {
+            if (workoutDTO.duration() < 15) {
+                throw new IllegalArgumentException("Duration must be greater than 15 minutes.");
+            }
             workout.setDuration(workoutDTO.duration());
         }
         workout = workoutDBService.save(workout);

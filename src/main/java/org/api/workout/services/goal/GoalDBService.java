@@ -1,6 +1,6 @@
 package org.api.workout.services.goal;
 
-import org.api.workout.controllers.exceptions.goals.GoalNotFoundException;
+import org.api.workout.exceptions.goals.GoalNotFoundException;
 import org.api.workout.entities.goals.Goal;
 import org.api.workout.repositories.goal.GoalDBRepo;
 import org.springframework.stereotype.Service;

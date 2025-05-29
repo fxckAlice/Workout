@@ -1,4 +1,4 @@
-package org.api.workout.controllers.dto.goal;
+package org.api.workout.dto.goal;
 
 import java.time.LocalDateTime;
 

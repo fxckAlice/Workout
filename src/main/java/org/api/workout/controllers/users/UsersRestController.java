@@ -1,8 +1,8 @@
 package org.api.workout.controllers.users;
 
 
-import org.api.workout.controllers.dto.user.RegisterRequestDTO;
-import org.api.workout.controllers.dto.user.UserDTO;
+import org.api.workout.dto.user.RegisterRequestDTO;
+import org.api.workout.dto.user.UserDTO;
 import org.api.workout.entities.user.User;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.security.DBUserDetailsService;
@@ -10,7 +10,6 @@ import org.api.workout.services.jwt.JwtService;
 import org.api.workout.services.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -71,10 +70,9 @@ public class UsersRestController {
     }
 
     @SuppressWarnings("unused")
-    @PreAuthorize("hasRole('ADMIN') or #id == #userDetails.id")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        UserDTO userDTO = userService.getUserDTOById(id);
+        UserDTO userDTO = userService.getUserDTOById(id, userDetails);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 

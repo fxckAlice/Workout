@@ -1,6 +1,6 @@
-package org.api.workout.controllers.dto.stats;
+package org.api.workout.dto.stats;
 
-import org.api.workout.controllers.dto.goal.GoalDTO;
+import org.api.workout.dto.goal.GoalDTO;
 
 public record StatsGoalDTO(
         long authorId,

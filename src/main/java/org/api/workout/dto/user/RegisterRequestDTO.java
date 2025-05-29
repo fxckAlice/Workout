@@ -1,4 +1,4 @@
-package org.api.workout.controllers.dto.user;
+package org.api.workout.dto.user;
 
 public record RegisterRequestDTO(
         String username,

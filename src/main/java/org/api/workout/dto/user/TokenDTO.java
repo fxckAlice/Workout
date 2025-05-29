@@ -1,4 +1,4 @@
-package org.api.workout.controllers.dto.user;
+package org.api.workout.dto.user;
 
 @SuppressWarnings("unused")
 public record TokenDTO(
