@@ -8,7 +8,7 @@ public record StatsWorkoutDTO(
         int completedWorkouts,
         StatsByTypeDTO allByType,
         StatsByTypeDTO completedByType,
-        WorkoutDTO nextWorkout,
-        WorkoutDTO lastWorkout
+        WorkoutDTO lastWorkout,
+        WorkoutDTO nextWorkout
 ) {
 }

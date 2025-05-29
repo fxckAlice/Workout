@@ -1,6 +1,7 @@
 package org.api.workout.services.workout;
 
 import org.api.workout.controllers.dto.workout.NewWorkoutDTO;
+import org.api.workout.controllers.dto.workout.UpdateWorkoutDTO;
 import org.api.workout.controllers.dto.workout.WorkoutDTO;
 import org.api.workout.controllers.dto.workout.WorkoutFilterDTO;
 import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
@@ -24,7 +25,7 @@ public class WorkoutService {
         this.userService = userService;
     }
 
-    public List<WorkoutDTO> findWorkoutsByFilter(WorkoutFilterDTO filter) {
+    public List<WorkoutDTO> findWorkoutsByFilter(WorkoutFilterDTO filter, CustomUserDetails userDetails) {
         Long authorId = null;
         if (filter.authorId() != null && !filter.authorId().isEmpty()) {
             try {
@@ -32,6 +33,10 @@ public class WorkoutService {
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Invalid authorId: " + filter.authorId());
             }
+        }
+        if ((authorId == null || userDetails.getId() != authorId) && userDetails.getAuthorities().stream()
+                .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            throw new AccessForbiddenException("You don't have access to this workout.");
         }
 
         Boolean isDone = null;
@@ -163,7 +168,7 @@ public class WorkoutService {
         }
         return workout;
     }
-    public WorkoutDTO updateWorkout(long id, WorkoutDTO workoutDTO, CustomUserDetails userDetails) {
+    public WorkoutDTO updateWorkout(long id, UpdateWorkoutDTO workoutDTO, CustomUserDetails userDetails) {
         Workout workout = workoutDBService.findById(id);
         if (workout.getAuthor().getId() != userDetails.getId() &&  userDetails.getAuthorities().stream()
                 .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {

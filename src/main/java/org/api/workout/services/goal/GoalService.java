@@ -3,6 +3,7 @@ package org.api.workout.services.goal;
 import org.api.workout.controllers.dto.goal.GoalDTO;
 import org.api.workout.controllers.dto.goal.GoalsFilterDTO;
 import org.api.workout.controllers.dto.goal.NewGoalDTO;
+import org.api.workout.controllers.dto.goal.UpdateGoalDTO;
 import org.api.workout.controllers.exceptions.goals.GoalNotFoundException;
 import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
 import org.api.workout.entities.goals.Goal;
@@ -22,7 +23,8 @@ public class GoalService {
         this.goalDBService = goalDBService;
         this.userService = userService;
     }
-    public List<GoalDTO> findAllByFilter(GoalsFilterDTO filter) {
+    @SuppressWarnings("all")
+    public List<GoalDTO> findAllByFilter(GoalsFilterDTO filter, CustomUserDetails userDetails) {
         List<Goal> goals;
 
         boolean hasAuthorId = filter.authorId() != null && !filter.authorId().isBlank();
@@ -40,6 +42,10 @@ public class GoalService {
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Invalid authorId: " + filter.authorId());
             }
+        }
+        if (authorId != null && userDetails.getId() != authorId && userDetails.getAuthorities().stream()
+                .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            throw new AccessForbiddenException("You don't have access to this goal.");
         }
 
         LocalDateTime deadlineDateFrom = null;
@@ -154,11 +160,17 @@ public class GoalService {
         }
         return goalDBService.save(goal);
     }
-    public GoalDTO updateGoal(long id, GoalDTO goalDTO, CustomUserDetails userDetails) {
+    public GoalDTO updateGoal(long id, UpdateGoalDTO goalDTO, CustomUserDetails userDetails) {
         Goal goal = goalDBService.findById(id);
         if (goal.getAuthor().getId() != userDetails.getId() &&  userDetails.getAuthorities().stream()
                 .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             throw new AccessForbiddenException("You don't have access to this goal.");
+        }
+        if (goalDTO.text() == null) {
+            throw new IllegalArgumentException("Parameter 'text' is required.");
+        }
+        if (goalDTO.deadline() == null) {
+            throw new IllegalArgumentException("Parameter 'deadline' is required.");
         }
         goal.setText(goalDTO.text());
         goal.setDone(goalDTO.isDone());
