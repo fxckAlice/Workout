@@ -67,8 +67,23 @@ public class WorkoutDBService {
     protected Workout findById(long id) {
         return workoutDBRepo.findById(id).orElseThrow(() -> new WorkoutNotFoundException("Workout with id: " + id + " not found."));
     }
-    protected int countAllByAuthorIdAndIsDone(long authorId, boolean isDone) {
-        return workoutDBRepo.countAllByAuthorIdAndIsDone(authorId, isDone);
+    protected int countAllByAuthorId(long authorId) {
+        return workoutDBRepo.countAllByAuthorId(authorId);
+    }
+    protected int countByAuthorIdAndIsDone(long authorId, boolean isDone) {
+        return workoutDBRepo.countByAuthorIdAndIsDone(authorId, isDone);
+    }
+    protected int countByAuthorIdAndType(long authorId, WorkoutType type) {
+        return workoutDBRepo.countByAuthorIdAndType(authorId, type);
+    }
+    protected int countByAuthorIdAndTypeAndIsDone(long authorId, WorkoutType type, boolean isDone) {
+        return workoutDBRepo.countByAuthorIdAndTypeAndIsDone(authorId, type, isDone);
+    }
+    protected Workout findTopByAuthorIdAndIsDoneOrderByDateDesc(long authorId) {
+        return workoutDBRepo.findTopByAuthorIdAndIsDoneOrderByDateDesc(authorId, true).orElseThrow(() -> new WorkoutNotFoundException("Workout not found for authorId: " + authorId + " and isDone: " + true + "."));
+    }
+    protected Workout findTopByAuthorIdAndIsDoneAndDateGreaterThanEqualOrderByDateAsc(long authorId) {
+        return workoutDBRepo.findTopByAuthorIdAndIsDoneAndDateGreaterThanEqualOrderByDateAsc(authorId, false, LocalDateTime.now()).orElseThrow(() -> new WorkoutNotFoundException("Workout not found for authorId: " + authorId + "."));
     }
     protected void deleteById(long id) {
         workoutDBRepo.deleteById(id);

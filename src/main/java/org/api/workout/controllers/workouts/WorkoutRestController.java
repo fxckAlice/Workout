@@ -1,8 +1,8 @@
 package org.api.workout.controllers.workouts;
 
-import org.api.workout.controllers.dto.NewWorkoutDTO;
-import org.api.workout.controllers.dto.WorkoutDTO;
-import org.api.workout.controllers.dto.WorkoutFilterDTO;
+import org.api.workout.controllers.dto.workout.NewWorkoutDTO;
+import org.api.workout.controllers.dto.workout.WorkoutDTO;
+import org.api.workout.controllers.dto.workout.WorkoutFilterDTO;
 import org.api.workout.entities.workout.Workout;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.workout.WorkoutService;
@@ -16,14 +16,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/workouts")
-public class WorkoutController {
+public class WorkoutRestController {
 
     private final WorkoutService workoutService;
 
-    public WorkoutController(WorkoutService workoutService) {
+    public WorkoutRestController(WorkoutService workoutService) {
         this.workoutService = workoutService;
     }
-
     @SuppressWarnings("unused")
     @PreAuthorize("hasRole('ADMIN') or userDetails.id.toString() == workoutFilterDTO.authorId()")
     @GetMapping("")

@@ -1,7 +1,7 @@
 package org.api.workout.controllers.users;
 
-import org.api.workout.controllers.dto.RegisterRequestDTO;
-import org.api.workout.controllers.dto.UserDTO;
+import org.api.workout.controllers.dto.user.RegisterRequestDTO;
+import org.api.workout.controllers.dto.user.UserDTO;
 import org.api.workout.entities.user.User;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.user.UserService;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
-public class UsersController {
+public class UsersRestController {
     private final UserService userService;
 
-    public UsersController(UserService userService) {
+    public UsersRestController(UserService userService) {
         this.userService = userService;
     }
 

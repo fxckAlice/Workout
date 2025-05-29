@@ -1,9 +1,10 @@
 package org.api.workout.services.workout;
 
-import org.api.workout.controllers.dto.NewWorkoutDTO;
-import org.api.workout.controllers.dto.WorkoutDTO;
-import org.api.workout.controllers.dto.WorkoutFilterDTO;
+import org.api.workout.controllers.dto.workout.NewWorkoutDTO;
+import org.api.workout.controllers.dto.workout.WorkoutDTO;
+import org.api.workout.controllers.dto.workout.WorkoutFilterDTO;
 import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
+import org.api.workout.controllers.exceptions.workout.WorkoutNotFoundException;
 import org.api.workout.entities.workout.Workout;
 import org.api.workout.entities.workout.WorkoutType;
 import org.api.workout.security.CustomUserDetails;
@@ -11,7 +12,6 @@ import org.api.workout.services.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class WorkoutService {
 
     public List<WorkoutDTO> findWorkoutsByFilter(WorkoutFilterDTO filter) {
         Long authorId = null;
-        if (filter.authorId() != null) {
+        if (filter.authorId() != null && !filter.authorId().isEmpty()) {
             try {
                 authorId = Long.parseLong(filter.authorId());
             } catch (NumberFormatException e) {
@@ -38,9 +38,18 @@ public class WorkoutService {
         if (filter.isDone() != null) {
             isDone = Boolean.parseBoolean(filter.isDone());
         }
+        LocalDateTime dateFrom = null;
+        LocalDateTime dateTo = null;
+        if (filter.dateFrom() != null) {
+            dateFrom = filter.dateFrom();
+            if (filter.dateTo() != null) {
+                dateTo = filter.dateTo();
+            }
+            else throw new IllegalArgumentException("Both dateFrom and dateTo must be specified for filtering by date. dateTo is missing.");
+        } else if (filter.dateTo() != null) {
+            throw new IllegalArgumentException("Both dateFrom and dateTo must be specified for filtering by date. dateFrom is missing.");
+        }
 
-        LocalDateTime dateFrom = filter.dateFrom();
-        LocalDateTime dateTo = filter.dateTo();
 
         WorkoutType type = null;
         if (filter.type() != null) {
@@ -49,40 +58,38 @@ public class WorkoutService {
 
         List<Workout> workouts;
 
-        if (authorId == null && isDone == null && dateFrom == null && dateTo == null && type == null) {
+        if (authorId == null && isDone == null && dateFrom == null && type == null) {
             workouts = workoutDBService.findAll();
-        } else if (authorId != null && isDone == null && dateFrom == null && dateTo == null && type == null) {
+        } else if (authorId != null && isDone == null && dateFrom == null && type == null) {
             workouts = workoutDBService.findAllByAuthorId(authorId);
-        } else if (authorId != null && isDone != null && dateFrom == null && dateTo == null && type == null) {
+        } else if (authorId != null && isDone != null && dateFrom == null && type == null) {
             workouts = workoutDBService.findAllByAuthorIdAndIsDone(authorId, isDone);
-        } else if (authorId != null && isDone == null && dateFrom == null && dateTo == null) {
+        } else if (authorId != null && isDone == null && dateFrom == null) {
             workouts = workoutDBService.findAllByAuthorIdAndType(authorId, type);
-        } else if (authorId != null && dateFrom != null && dateTo != null && isDone == null && type == null) {
+        } else if (authorId != null && dateFrom != null && isDone == null && type == null) {
             workouts = workoutDBService.findAllByAuthorIdAndDateBetween(authorId, dateFrom, dateTo);
-        } else if (authorId != null && dateFrom != null && dateTo != null && type != null && isDone == null) {
+        } else if (authorId != null && dateFrom != null && type != null && isDone == null) {
             workouts = workoutDBService.findAllByAuthorIdAndDateBetweenAndType(authorId, dateFrom, dateTo, type);
-        } else if (authorId != null && dateFrom != null && dateTo != null && type == null) {
+        } else if (authorId != null && dateFrom != null && type == null) {
             workouts = workoutDBService.findAllByAuthorIdAndDateBetweenAndIsDone(authorId, dateFrom, dateTo, isDone);
-        } else if (authorId != null && dateFrom != null && dateTo != null) {
+        } else if (authorId != null && dateFrom != null) {
             workouts = workoutDBService.findAllByAuthorIdAndDateBetweenAndTypeAndIsDone(authorId, dateFrom, dateTo, type, isDone);
-        } else if (dateFrom != null && dateTo != null && type != null && isDone == null) {
+        } else if (dateFrom != null && type != null && isDone == null) {
             workouts = workoutDBService.findAllByDateBetweenAndType(dateFrom, dateTo, type);
-        } else if (dateFrom != null && dateTo != null && isDone != null && type == null) {
+        } else if (dateFrom != null && isDone != null && type == null) {
             workouts = workoutDBService.findAllByDateBetweenAndIsDone(dateFrom, dateTo, isDone);
-        } else if (dateFrom != null && dateTo != null && type != null) {
+        } else if (dateFrom != null && type != null) {
             workouts = workoutDBService.findAllByDateBetweenAndTypeAndIsDone(dateFrom, dateTo, type, isDone);
-        } else if (authorId != null && isDone != null && type != null && dateFrom == null && dateTo == null) {
+        } else if (authorId != null) {
             workouts = workoutDBService.findAllByAuthorIdAndIsDoneAndType(authorId, isDone, type);
-        } else if (type != null && isDone != null && authorId == null && dateFrom == null && dateTo == null) {
+        } else if (type != null && isDone != null) {
             workouts = workoutDBService.findAllByTypeAndIsDone(type, isDone);
-        } else if (type != null && isDone == null && authorId == null && dateFrom == null && dateTo == null) {
+        } else if (type != null) {
             workouts = workoutDBService.findAllByType(type);
-        } else if (isDone != null && type == null && authorId == null && dateFrom == null && dateTo == null) {
+        } else if (isDone != null) {
             workouts = workoutDBService.findAllByIsDone(isDone);
-        } else if (dateFrom != null && dateTo != null) {
-            workouts = workoutDBService.findAllByDateBetween(dateFrom, dateTo);
         } else {
-            workouts = Collections.emptyList();
+            workouts = workoutDBService.findAllByDateBetween(dateFrom, dateTo);
         }
 
         return workouts.stream()
@@ -123,6 +130,38 @@ public class WorkoutService {
                 workout.getDuration(),
                 workout.getCreatedAt()
         );
+    }
+    public int countWorkouts(long authorId) {
+        return workoutDBService.countAllByAuthorId(authorId);
+    }
+    public int countWorkouts(long authorId, boolean isDone) {
+        return workoutDBService.countByAuthorIdAndIsDone(authorId, isDone);
+    }
+    public int countWorkouts(long authorId, WorkoutType type) {
+        return workoutDBService.countByAuthorIdAndType(authorId, type);
+    }
+    public int countWorkouts(long authorId, WorkoutType type, boolean isDone) {
+        return workoutDBService.countByAuthorIdAndTypeAndIsDone(authorId, type, isDone);
+    }
+    public Workout getLastCompletedWorkout(long authorId) {
+        Workout workout;
+        try {
+            workout = workoutDBService.findTopByAuthorIdAndIsDoneOrderByDateDesc(authorId);
+        }
+        catch (WorkoutNotFoundException e) {
+            workout = null;
+        }
+        return workout;
+    }
+    public Workout getFirstUncompletedWorkout(long authorId) {
+        Workout workout;
+        try {
+            workout = workoutDBService.findTopByAuthorIdAndIsDoneAndDateGreaterThanEqualOrderByDateAsc(authorId);
+        }
+        catch (WorkoutNotFoundException e) {
+            workout = null;
+        }
+        return workout;
     }
     public WorkoutDTO updateWorkout(long id, WorkoutDTO workoutDTO, CustomUserDetails userDetails) {
         Workout workout = workoutDBService.findById(id);
