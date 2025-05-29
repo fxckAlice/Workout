@@ -1,9 +1,9 @@
 package org.api.workout.controllers.workouts;
 
-import org.api.workout.controllers.dto.workout.NewWorkoutDTO;
-import org.api.workout.controllers.dto.workout.UpdateWorkoutDTO;
-import org.api.workout.controllers.dto.workout.WorkoutDTO;
-import org.api.workout.controllers.dto.workout.WorkoutFilterDTO;
+import org.api.workout.dto.workout.NewWorkoutDTO;
+import org.api.workout.dto.workout.UpdateWorkoutDTO;
+import org.api.workout.dto.workout.WorkoutDTO;
+import org.api.workout.dto.workout.WorkoutFilterDTO;
 import org.api.workout.entities.workout.Workout;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.workout.WorkoutService;

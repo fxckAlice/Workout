@@ -47,6 +47,14 @@ public class User{
         this.createdAt = LocalDateTime.now();
         this.lastLogin = LocalDateTime.now();
     }
+    public User(long id, String username, String passHash) {
+        this.id = id;
+        this.username = username;
+        this.passHash = passHash;
+        this.role.add(UserRoles.ROLE_USER);
+        this.createdAt = LocalDateTime.now();
+        this.lastLogin = LocalDateTime.now();
+    }
     @PrePersist
     public void prePersist() {
         this.setCreatedAt(LocalDateTime.now());

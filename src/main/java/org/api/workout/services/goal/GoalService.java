@@ -1,11 +1,11 @@
 package org.api.workout.services.goal;
 
-import org.api.workout.controllers.dto.goal.GoalDTO;
-import org.api.workout.controllers.dto.goal.GoalsFilterDTO;
-import org.api.workout.controllers.dto.goal.NewGoalDTO;
-import org.api.workout.controllers.dto.goal.UpdateGoalDTO;
-import org.api.workout.controllers.exceptions.goals.GoalNotFoundException;
-import org.api.workout.controllers.exceptions.workout.AccessForbiddenException;
+import org.api.workout.dto.goal.GoalDTO;
+import org.api.workout.dto.goal.GoalsFilterDTO;
+import org.api.workout.dto.goal.NewGoalDTO;
+import org.api.workout.dto.goal.UpdateGoalDTO;
+import org.api.workout.exceptions.goals.GoalNotFoundException;
+import org.api.workout.exceptions.workout.AccessForbiddenException;
 import org.api.workout.entities.goals.Goal;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.user.UserService;

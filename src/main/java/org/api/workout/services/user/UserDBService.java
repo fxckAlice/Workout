@@ -1,6 +1,6 @@
 package org.api.workout.services.user;
 
-import org.api.workout.controllers.exceptions.user.UserNotFoundException;
+import org.api.workout.exceptions.user.UserNotFoundException;
 import org.api.workout.entities.user.User;
 import org.api.workout.repositories.user.UserDBRepo;
 import org.springframework.stereotype.Service;

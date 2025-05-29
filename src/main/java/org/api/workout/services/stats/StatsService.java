@@ -1,10 +1,10 @@
 package org.api.workout.services.stats;
 
-import org.api.workout.controllers.dto.goal.GoalDTO;
-import org.api.workout.controllers.dto.stats.StatsByTypeDTO;
-import org.api.workout.controllers.dto.stats.StatsGoalDTO;
-import org.api.workout.controllers.dto.stats.StatsWorkoutDTO;
-import org.api.workout.controllers.dto.workout.WorkoutDTO;
+import org.api.workout.dto.goal.GoalDTO;
+import org.api.workout.dto.stats.StatsByTypeDTO;
+import org.api.workout.dto.stats.StatsGoalDTO;
+import org.api.workout.dto.stats.StatsWorkoutDTO;
+import org.api.workout.dto.workout.WorkoutDTO;
 import org.api.workout.entities.goals.Goal;
 import org.api.workout.entities.workout.Workout;
 import org.api.workout.entities.workout.WorkoutType;

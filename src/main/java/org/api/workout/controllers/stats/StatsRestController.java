@@ -1,7 +1,7 @@
 package org.api.workout.controllers.stats;
 
-import org.api.workout.controllers.dto.stats.StatsGoalDTO;
-import org.api.workout.controllers.dto.stats.StatsWorkoutDTO;
+import org.api.workout.dto.stats.StatsGoalDTO;
+import org.api.workout.dto.stats.StatsWorkoutDTO;
 import org.api.workout.security.CustomUserDetails;
 import org.api.workout.services.stats.StatsService;
 import org.springframework.http.HttpStatus;

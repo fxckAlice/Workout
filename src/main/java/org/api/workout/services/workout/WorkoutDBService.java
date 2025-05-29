@@ -1,6 +1,6 @@
 package org.api.workout.services.workout;
 
-import org.api.workout.controllers.exceptions.workout.WorkoutNotFoundException;
+import org.api.workout.exceptions.workout.WorkoutNotFoundException;
 import org.api.workout.entities.workout.Workout;
 import org.api.workout.entities.workout.WorkoutType;
 import org.api.workout.repositories.workout.WorkoutDBRepo;
