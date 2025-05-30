@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public record UpdateWorkoutDTO(
         LocalDateTime date,
-        boolean isDone,
+        Boolean isDone,
         WorkoutType type,
         Integer duration
 ) {

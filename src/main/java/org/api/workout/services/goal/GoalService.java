@@ -166,15 +166,16 @@ public class GoalService {
                 .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             throw new AccessForbiddenException("You don't have access to this goal.");
         }
-        if (goalDTO.text() == null) {
-            throw new IllegalArgumentException("Parameter 'text' is required.");
+        if (goalDTO.text() != null) {
+            goal.setText(goalDTO.text());
         }
-        if (goalDTO.deadline() == null) {
-            throw new IllegalArgumentException("Parameter 'deadline' is required.");
+        if (goalDTO.deadline() != null) {
+            goal.setDeadline(goalDTO.deadline());
         }
-        goal.setText(goalDTO.text());
-        goal.setDone(goalDTO.isDone());
-        goal.setDeadline(goalDTO.deadline());
+        if(goalDTO.isDone() != null){
+            goal.setDone(goalDTO.isDone());
+        }
+
         goal = goalDBService.save(goal);
         return new GoalDTO(
                 goal.getId(),

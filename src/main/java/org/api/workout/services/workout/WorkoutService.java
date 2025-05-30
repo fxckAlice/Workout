@@ -177,9 +177,15 @@ public class WorkoutService {
                 .noneMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             throw new AccessForbiddenException("You don't have access to this workout.");
         }
-        workout.setDate(workoutDTO.date());
-        workout.setDone(workoutDTO.isDone());
-        workout.setType(workoutDTO.type());
+        if (workoutDTO.date() != null){
+            workout.setDate(workoutDTO.date());
+        }
+        if (workoutDTO.isDone() != null){
+            workout.setDone(workoutDTO.isDone());
+        }
+        if (workoutDTO.type() != null){
+            workout.setType(workoutDTO.type());
+        }
         if (workoutDTO.duration() != null) {
             if (workoutDTO.duration() < 15) {
                 throw new IllegalArgumentException("Duration must be greater than 15 minutes.");
