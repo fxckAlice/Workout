@@ -33,7 +33,7 @@ public class WorkoutRestController {
     @PostMapping("")
     public ResponseEntity<?> postWorkout(@RequestBody NewWorkoutDTO workoutDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
         Workout workout = workoutService.newWorkout(workoutDTO, userDetails.getId());
-        return new ResponseEntity<>(workout.getId(), HttpStatus.OK);
+        return new ResponseEntity<>(workout.getId(), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

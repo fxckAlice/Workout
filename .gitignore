@@ -64,4 +64,4 @@ test-output/
 *.orig
 
 # Ignore local application properties
-application-local.properties
+application.properties

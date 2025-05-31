@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public record UpdateGoalDTO(
         String text,
-        boolean isDone,
+        Boolean isDone,
         LocalDateTime deadline
 ) {
 }

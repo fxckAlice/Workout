@@ -60,7 +60,7 @@ class WorkoutRestControllerTest {
 
         ResponseEntity<?> response = workoutRestController.postWorkout(newWorkout, userDetails);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(42L, response.getBody());
         verify(workoutService).newWorkout(newWorkout, 99L);
     }

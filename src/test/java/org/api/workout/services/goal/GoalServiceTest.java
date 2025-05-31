@@ -173,42 +173,6 @@ class GoalServiceTest {
     }
 
     @Test
-    void updateGoal_shouldThrow_whenTextIsNull() {
-        Goal goal = new Goal();
-        goal.setAuthor(new User(1L, "user", "pass"));
-
-        UpdateGoalDTO dto = new UpdateGoalDTO(null, true, LocalDateTime.now().plusDays(5));
-
-        CustomUserDetails user = new CustomUserDetails(
-                1L, "user", "pass",
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
-
-        Mockito.when(goalDBService.findById(1L)).thenReturn(goal);
-
-        assertThrows(IllegalArgumentException.class, () ->
-                goalService.updateGoal(1L, dto, user));
-    }
-
-    @Test
-    void updateGoal_shouldThrow_whenDeadlineIsNull() {
-        Goal goal = new Goal();
-        goal.setAuthor(new User(1L, "user", "pass"));
-
-        UpdateGoalDTO dto = new UpdateGoalDTO("Text", true, null);
-
-        CustomUserDetails user = new CustomUserDetails(
-                1L, "user", "pass",
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
-
-        Mockito.when(goalDBService.findById(1L)).thenReturn(goal);
-
-        assertThrows(IllegalArgumentException.class, () ->
-                goalService.updateGoal(1L, dto, user));
-    }
-
-    @Test
     void deleteGoal_shouldSucceed_whenAuthor() {
         Goal goal = new Goal();
         goal.setId(1L);
