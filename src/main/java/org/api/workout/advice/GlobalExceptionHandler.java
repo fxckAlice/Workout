@@ -7,6 +7,7 @@ import org.api.workout.exceptions.workout.AccessForbiddenException;
 import org.api.workout.exceptions.workout.WorkoutNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -61,5 +62,12 @@ public class GlobalExceptionHandler {
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
-
+    @SuppressWarnings("unused")
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "bad request");
+        error.put("message", "bad request. Check your request body. ");
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 }

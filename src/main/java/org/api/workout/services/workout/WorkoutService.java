@@ -110,6 +110,9 @@ public class WorkoutService {
                 .toList();
     }
     public Workout newWorkout(NewWorkoutDTO newWorkoutDTO, Long authorId) {
+        if (newWorkoutDTO.date() == null || newWorkoutDTO.type() == null) {
+            throw new IllegalArgumentException("Date and type must be specified.");
+        }
         Workout workout = new Workout(
                 userService.findById(authorId),
                 newWorkoutDTO.type(),
