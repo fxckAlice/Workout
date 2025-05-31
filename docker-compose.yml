@@ -12,6 +12,23 @@ services:
     volumes:
       - ./src/main/resources/static/sql:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  app:
+    image: fxckalice/workout
+    restart: unless-stopped
+    container_name: workout
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_URL: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+
 
 volumes:
   postgres_data: null
