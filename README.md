@@ -20,7 +20,7 @@ Workout API — is a simple API for managing your workouts and goals. Built usin
 - Spring Boot 3.5
 - Spring Security (JWT)
 - Spring Data JPA
-- H2 / PostgreSQL / MariaDB (depends on configuration)
+- PostgreSQL
 - Gradle
 
 ---
@@ -56,7 +56,6 @@ Source file : `src/main/resources/static/sql/init.sql`
 +------------+--------------+------------------------------+
 ```
 
----
 
 ### 🏋️ workouts
 ```
@@ -73,7 +72,6 @@ Source file : `src/main/resources/static/sql/init.sql`
 +------------+--------------+------------------------------+
 ```
 
----
 
 ### 🎯 goals
 ```
@@ -89,7 +87,6 @@ Source file : `src/main/resources/static/sql/init.sql`
 +------------+--------------+------------------------------+
 ```
 
----
 
 ### 🛡️ user_roles
 ```
@@ -104,6 +101,13 @@ Source file : `src/main/resources/static/sql/init.sql`
 ```
 
 ---
+
+## 🌱 Environment Variables Needed
+```
+DB_USER: username
+DB_PASS: password
+DB_URL: jdbc:postgresqlP://database_host:port/database_name
+```
 
 ---
 ## 🌐 Endpoints
