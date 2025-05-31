@@ -128,6 +128,7 @@ Accepts a JSON body with user information:
 Return id of the new user and token if successful:
 
 <h4 style="color: green;">201 CREATED</h4>
+
 ```json
 {
   "userId": 0,
@@ -135,7 +136,9 @@ Return id of the new user and token if successful:
 }
 ```
 Username must be unique (<b style="color: red;">409</b>).
+
 - <h3>POST `api/users/login`, Without authorization ✅</h3>
+
 Controller for authorize in an existing account.<br>
   Accepts a JSON body with user information:
 ```json
@@ -147,17 +150,22 @@ Controller for authorize in an existing account.<br>
 Return the token if successful:
 
 <h4 style="color: green;">200 OK</h4>
+
 ```json
 {
   "token": "new_token"
 }
 ```
 Username must exist (<b style="color: red;">404</b>), and passwords match (<b style="color: red;">400</b>)
+
 - <h3>GET `api/users/{id}`, Without authorization ❌</h3>
+
 Controller for getting information about user by its `id` field.<br>
 Accepts no params <br>
 Return the user's JSON object if successful:
+
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json
 {
   "id": 0,
@@ -217,7 +225,9 @@ Accepts params:
 ```
 
 Return a list of workout JSON objects if success:
+
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json
 [
   {
@@ -237,6 +247,7 @@ this must be your account id if you do not have `ROLE_ADMIN`(<b style="color: re
 and you must specify neither `dateFrom` nor `dateTo` or both of them (<b style="color: red;">400</b>)
 
 - <h3>POST `api/workouts`, Without authorization ❌</h3>
+
 Controller for creating new workout.<br>
 Accepts JSON body with information of new workout:
 
@@ -249,7 +260,9 @@ Accepts JSON body with information of new workout:
 ```
 
 Return a workout id if success:
+
 <h4 style="color: green;"> 201 CREATED</h4>
+
 ```
 0
 ```
@@ -334,6 +347,7 @@ Accepts params:
 ```
 Return a list of goal JSON objects if successful:
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json
 [
   {
@@ -347,11 +361,14 @@ Return a list of goal JSON objects if successful:
 ]
 ```
 You can have any param as `null` to not have filters. If specified, `authorId` must be your account id unless you have `ROLE_ADMIN` (<span style="color: red">**403**</span>). You must specify both `deadlineDateFrom` and `deadlineDateTo` or neither (<span style="color: red">**400**</span>). The same applies for `createdAtFrom` and `createdAtTo`.
+
 - ### GET `api/goals/{id}`, Without authorization ❌
 Controller for getting information about a goal by id.<br>
 Accepts no params.<br>
 Returns JSON object of the goal:
+
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json
 {
   "id": 0,
@@ -375,6 +392,7 @@ Accepts JSON body with information of the new goal:
 ```
 Returns the goal id if successful:
 <h4 style="color: green;"> 201 CREATED</h4>
+
 ``` 
 0
 ```
@@ -391,6 +409,7 @@ Accepts JSON body:
 ```
 Returns JSON object of the updated goal:
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json
 {
   "id": 0,
@@ -407,6 +426,7 @@ Controller for deleting goal by id.
 Accepts no params.
 Returns an empty response:
 <h4 style="color: green;"> 200 OK</h4>
+
 ```
 ```
 
@@ -417,6 +437,7 @@ Controller for getting workout statistics for the authenticated user.<br>
 Accepts no params.<br>
 Returns JSON object containing workout statistics:
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json 
 { 
   "authorId": 0, 
@@ -468,6 +489,7 @@ Controller for getting goal statistics for the authenticated user.<br>
 Accepts no params.<br>
 Returns JSON object containing goal statistics:
 <h4 style="color: green;"> 200 OK</h4>
+
 ```json 
 { 
   "authorId": 0, 
